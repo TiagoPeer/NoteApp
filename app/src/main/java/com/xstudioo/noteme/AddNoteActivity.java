@@ -15,50 +15,37 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 public class AddNoteActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    EditText noteTitle,noteDetails;
-    Calendar c;
-    String todaysDate;
-    String currentTime;
+    Toolbar mToolbar;
+    EditText mNoteTitle, mNoteDetails;
+    Calendar mCalendar;
+    String mTodaysDate;
+    String mCurrentTime;
+    int mNumberTimesEdited;
+
+    TextWatcher mTxtHandler = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if(s.length() != 0){
+                getSupportActionBar().setTitle(s);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Nova Nota");
-
-        noteDetails = findViewById(R.id.noteDetails);
-        noteTitle = findViewById(R.id.noteTitle);
-
-        noteTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() != 0){
-                    getSupportActionBar().setTitle(s);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        c = Calendar.getInstance();
-        todaysDate = c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH);
-        Log.d("DATE", "Data: "+todaysDate);
-        currentTime = pad(c.get(Calendar.HOUR_OF_DAY))+":"+pad(c.get(Calendar.MINUTE));
-        Log.d("TIME", "Hora: "+currentTime);
-
+        init();
     }
 
     private String pad(int time) {
@@ -67,7 +54,6 @@ public class AddNoteActivity extends AppCompatActivity {
         return String.valueOf(time);
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,8 +65,8 @@ public class AddNoteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.save){
-            if(noteTitle.getText().length() != 0){
-                Note note = new Note(noteTitle.getText().toString(),noteDetails.getText().toString(),todaysDate,currentTime);
+            if(mNoteTitle.getText().length() != 0){
+                Note note = new Note(mNoteTitle.getText().toString(), mNoteDetails.getText().toString(), mTodaysDate, mCurrentTime,mNumberTimesEdited);
                 SimpleDatabase sDB = new SimpleDatabase(this);
                 long id = sDB.addNote(note);
                 Note check = sDB.getNote(id);
@@ -89,7 +75,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
                 Toast.makeText(this, "Nota Guardada", Toast.LENGTH_SHORT).show();
             }else {
-                noteTitle.setError("Titlulo não pode estar vazio");
+                mNoteTitle.setError("Titlulo não pode estar vazio");
             }
 
         }else if(item.getItemId() == R.id.delete){
@@ -102,5 +88,26 @@ public class AddNoteActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    void init(){
+        mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Nova Nota");
+
+        mNoteDetails = findViewById(R.id.idEtNoteDetails);
+        mNoteTitle = findViewById(R.id.idEtNoteTitle);
+
+        mNoteTitle.addTextChangedListener(mTxtHandler);
+
+        mNumberTimesEdited = 0;
+        mCalendar = Calendar.getInstance();
+        mTodaysDate = mCalendar.get(Calendar.YEAR)+"/"+(mCalendar.get(Calendar.MONTH)+1)+"/"+ mCalendar.get(Calendar.DAY_OF_MONTH);
+        Log.d("DATE", "Data: "+ mTodaysDate);
+        mCurrentTime = pad(mCalendar.get(Calendar.HOUR_OF_DAY))+":"+pad(mCalendar.get(Calendar.MINUTE));
+        Log.d("TIME", "Hora: "+ mCurrentTime);
+
     }
 }

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
     Context mContext;
     Toolbar toolbar;
     RecyclerView recyclerView;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
-        noItemText = findViewById(R.id.noItemText);
+        noItemText = findViewById(R.id.idTvNoItemText);
         simpleDatabase = new SimpleDatabase(mContext);
         List<Note> allNotes = simpleDatabase.getAllNotes();
         recyclerView = findViewById(R.id.allNotesList);

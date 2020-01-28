@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -18,10 +19,12 @@ import java.util.Calendar;
 public class EditActivity extends AppCompatActivity {
     Toolbar toolbar;
     EditText nTitle, nContent;
+    TextView mNumber;
     Calendar c;
     String todaysDate;
     String currentTime;
     String mTitle;
+    int mNumberTimesEdited;
     long nId;
 
     TextWatcher mTxtHandler = new TextWatcher() {
@@ -68,7 +71,8 @@ public class EditActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.save) {
-            Note note = new Note(nId, nTitle.getText().toString(), nContent.getText().toString(), todaysDate, currentTime);
+            mNumberTimesEdited++;
+            Note note = new Note(nId, nTitle.getText().toString(), nContent.getText().toString(), todaysDate, currentTime, mNumberTimesEdited);
             Log.d("EDITED", "edited: before saving id -> " + note.getId());
             SimpleDatabase sDB = new SimpleDatabase(getApplicationContext());
             long id = sDB.editNote(note);
@@ -100,11 +104,12 @@ public class EditActivity extends AppCompatActivity {
 
         this.mTitle = note.getTitle();
         String content = note.getContent();
-        nTitle = findViewById(R.id.noteTitle);
-        nContent = findViewById(R.id.noteDetails);
+        nTitle = findViewById(R.id.idEtNoteTitle);
+        nContent = findViewById(R.id.idEtNoteDetails);
         nTitle.addTextChangedListener(mTxtHandler);
 
 
+        mNumberTimesEdited = note.getNumberTimesEdited();
         nTitle.setText(mTitle);
         nContent.setText(content);
 

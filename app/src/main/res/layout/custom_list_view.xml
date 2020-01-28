@@ -33,7 +33,7 @@
 
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/idIvImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +51,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/nTitle"
+                    android:id="@+id/idTvNoteTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -67,7 +67,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/nDate"
+                    android:id="@+id/idTvNoteDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -75,10 +75,10 @@
                     android:text="created : 7/31/2019"
                     android:textStyle="italic"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/idTvNoteTitle" />
 
                 <TextView
-                    android:id="@+id/nTime"
+                    android:id="@+id/idTvNoteTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -88,11 +88,11 @@
                     android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/nDate"
-                    app:layout_constraintTop_toBottomOf="@+id/nTitle" />
+                    app:layout_constraintStart_toEndOf="@+id/idTvNoteDate"
+                    app:layout_constraintTop_toBottomOf="@+id/idTvNoteTitle" />
 
                 <TextView
-                    android:id="@+id/listId"
+                    android:id="@+id/idTvListId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
@@ -102,7 +102,7 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/nTitle"
+                    app:layout_constraintStart_toEndOf="@+id/idTvNoteTitle"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>

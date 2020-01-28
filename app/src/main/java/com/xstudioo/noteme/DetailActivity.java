@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
     long id;
-
+    TextView details;
+    TextView number;
+    String mTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,18 @@ public class DetailActivity extends AppCompatActivity {
             i.putExtra("ID",id);
             startActivity(i);
 
+        }else if(item.getItemId() == R.id.email){
+
+            String subject = mTitle;
+            String message = details.getText().toString();
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(Intent.EXTRA_TEXT, message);
+
+            intent.setType("message/rfc822");
+            startActivity(Intent.createChooser(intent, "Choose an email client"));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -60,11 +74,14 @@ public class DetailActivity extends AppCompatActivity {
         SimpleDatabase db = new SimpleDatabase(this);
         Note note = db.getNote(id);
         getSupportActionBar().setTitle(note.getTitle());
-        TextView details = findViewById(R.id.noteDesc);
+        details = findViewById(R.id.idTvNoteDesc);
         details.setText(note.getContent());
         details.setMovementMethod(new ScrollingMovementMethod());
+        mTitle = note.getTitle();
+        number = findViewById(R.id.idTvNumberTimesEdited);
+        number.setText(String.valueOf(note.getNumberTimesEdited()));
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.idBtnDelete);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

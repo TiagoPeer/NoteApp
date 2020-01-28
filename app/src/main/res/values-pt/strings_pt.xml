@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minhas Notas</string>
+    <string name="title_activity_detail">Detalhes</string>
+    <string name="strTvMain">Vazio! Adicione novas notas usando\" + \"</string>
+
+</resources>

@@ -25,10 +25,10 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
-        android:id="@+id/noItemText"
+        android:id="@+id/idTvNoItemText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text='Vazio! Adicione notas usando " + "'
+        android:text='@string/strTvMain'
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold"

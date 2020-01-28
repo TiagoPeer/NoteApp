@@ -7,4 +7,10 @@
         android:icon="@drawable/ic_edit_black_24dp"
         android:title="Edit"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/email"
+        android:icon="@drawable/ic_email_white_24dp"
+        android:title="Edit"
+        app:showAsAction="ifRoom" />
 </menu>
